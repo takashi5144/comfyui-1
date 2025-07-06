@@ -80,6 +80,11 @@ const useGenerationStore = create((set, get) => ({
       
       const response = await comfyAPI.generateImage(params);
       
+      // デバッグログ
+      if (window.debugLog) {
+        window.debugLog('画像生成リクエスト送信', 'info', params);
+      }
+      
       // デモモードの場合のメッセージ表示
       if (response.message && response.message.includes('デモモード')) {
         set({ 

@@ -1,6 +1,6 @@
 {
   "name": "comfyui-a1111-app",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "ComfyUI based image generation app with A1111-style UI",
   "main": "server/index.js",
   "scripts": {

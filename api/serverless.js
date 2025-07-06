@@ -7,8 +7,18 @@ app.use(cors());
 app.use(express.json());
 
 const COMFYUI_URL = process.env.COMFYUI_URL || 'http://localhost:8188';
+const DEMO_MODE = !process.env.COMFYUI_URL;
 
 app.post('/api/prompt', async (req, res) => {
+  if (DEMO_MODE) {
+    // デモモード：ダミーのレスポンスを返す
+    res.json({ 
+      prompt_id: 'demo-' + Date.now(),
+      message: 'デモモードです。実際の画像生成にはCOMFYUI_URL環境変数を設定してください。'
+    });
+    return;
+  }
+  
   try {
     const response = await axios.post(`${COMFYUI_URL}/prompt`, req.body);
     res.json(response.data);

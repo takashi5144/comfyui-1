@@ -80,6 +80,17 @@ const useGenerationStore = create((set, get) => ({
       
       const response = await comfyAPI.generateImage(params);
       
+      // デモモードの場合のメッセージ表示
+      if (response.message && response.message.includes('デモモード')) {
+        set({ 
+          isGenerating: false,
+          progress: 0,
+          progressMessage: response.message
+        });
+        alert(response.message + '\n\nComfyUIサーバーのセットアップ方法:\n1. Google Colabで無料で試す\n2. RunPodで本格運用\n3. Vercelの環境変数にCOMFYUI_URLを設定');
+        return;
+      }
+      
       if (response.success) {
         set({ 
           currentPromptId: response.promptId,
